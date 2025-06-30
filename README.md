@@ -1,3 +1,5 @@
+Markdown
+
 
 
 # 🧑‍💻 Microservicio de Clientes para Sistema de Ventas
@@ -8,8 +10,8 @@ Este proyecto implementa el microservicio de gestión de clientes dentro de un s
 
 
 
-El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:```prisma
-
+El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:
+```prisma
 model Client {
 
 id Int @id @default(autoincrement())
@@ -29,11 +31,62 @@ createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
 
 }
+```
 
 ⚙️ Funcionalidades Expuestas (Patrones de Mensaje TCP)
 
 Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
 
+```markdown
+cmd
+
+Descripción
+
+Payload Esperado (data)
+
+Retorno (Promise<...)
+
+createClient
+
+Crea un nuevo cliente en la base de datos.
+
+Omit<Client, 'id' | 'createdAt' | 'updatedAt'> (ej. { firstName: 'Juan', email: 'j@ex.com' })
+
+Client
+
+findAllClients
+
+Obtiene una lista de todos los clientes.
+
+{} (Objeto vacío o cualquier valor, no se utiliza)
+
+Client[]
+
+findClientById
+
+Busca y devuelve un cliente específico por su ID.
+
+number (el ID del cliente)
+
+Client | null
+
+updateClient
+
+Actualiza los datos de un cliente existente.
+
+{ id: number, data: Partial<Omit<Client, 'id' | 'createdAt' | 'updatedAt'>> }
+
+Client
+
+deleteClient
+
+Elimina un cliente de la base de datos por su ID.
+
+number (el ID del cliente a eliminar)
+
+Client
+
+```
 
 🚀 Cómo Poner en Marcha el Microservicio
 
@@ -60,12 +113,17 @@ Navegar al Directorio del Proyecto:
 Si ya clonaste o creaste el proyecto, simplemente navega a su directorio:
 
 
+
+```bash
 cd microservice-clientes
 
 (Si necesitas clonarlo: git clone [URL_DE_TU_REPOSITORIO_GITHUB])
 
 Instalar Dependencias del Proyecto:
 
+```
+
+```bash
 
 npm install
 
@@ -85,9 +143,12 @@ Abre el archivo .env en la raíz de tu proyecto.
 
 Asegúrate de que la DATABASE_URL esté correctamente configurada con tus credenciales y el nombre de tu base de datos:
 
+```
 
+```markdown
 
 # .env
+```bash
 
 DATABASE_URL="postgresql://postgres:bipc@localhost:5432/clientes_db?schema=public"
 
@@ -95,8 +156,10 @@ Asegúrate de que el esquema de tu modelo Client en prisma/schema.prisma sea el 
 
 Genera el cliente de Prisma y sincroniza el esquema con tu base de datos (esto creará o actualizará la tabla Client):
 
+```
 
 
+```bash
 
 npx prisma generate
 
@@ -105,6 +168,10 @@ npx prisma db push
 Verificar y Ajustar src/main.ts:
 
 Confirma que src/main.ts está configurado para iniciar el microservicio TCP en el puerto 3004 y escuchar en todas las interfaces:
+
+```
+
+```typeScript
 
 
 
@@ -136,7 +203,9 @@ Iniciar el Microservicio
 
 Una vez configurado todo lo anterior, para levantar el microservicio de clientes:
 
+```
 
+```bash
 
 npm run start:dev
 
@@ -154,20 +223,26 @@ Crear un Nuevo Proyecto NestJS para Pruebas (en otro directorio):
 
 Abre una nueva terminal y crea un nuevo proyecto NestJS, por ejemplo, test-gateway-client:
 
+```
 
+```bash
 
 nest new test-gateway-clientcd test-gateway-client
 
 Instalar Dependencia de Microservicios:
 
+```
 
-
-
+```bash
 npm install @nestjs/microservices
 
 Configurar el Cliente de Prueba en src/main.ts del Proyecto de Prueba:
 
 Reemplaza el contenido del src/main.ts de este nuevo proyecto test-gateway-client con el siguiente código. Este script se encargará de enviar solicitudes a tu microservicio de clientes.
+
+```
+
+```typeScript
 
 
 
@@ -304,9 +379,12 @@ Ejecutar el Cliente de Prueba:
 Asegúrate de que tu microservicio de clientes (microservice-clientes) esté corriendo en su propia terminal (npm run start:dev).
 
 Luego, en la terminal de tu nuevo proyecto test-gateway-client, ejecuta:
+```
 
-
-
+  ```bash 
 npm run start # O npm run start:dev si también está en modo watch
+```
+
+
 
 Verás en la consola de test-gateway-client cómo se envían las peticiones y se reciben las respuestas de tu microservicio de clientes, confirmando su correcto funcionamiento.
