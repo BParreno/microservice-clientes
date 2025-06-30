@@ -6,16 +6,27 @@ Este proyecto implementa el microservicio de gestión de clientes dentro de un s
 
 **🚀 Tecnologías Utilizadas**
 
-* **NestJS:** Un framework progresivo de Node.js, ideal para construir aplicaciones del lado del servidor escalables y eficientes, siguiendo principios de arquitectura modular.* **Prisma:** Un ORM (Object-Relational Mapper) y generador de cliente moderno para Node.js y TypeScript, que proporciona una forma segura y tipada de interactuar con la base de datos.* **PostgreSQL:** Un potente sistema de gestión de bases de datos relacionales, utilizado para almacenar la información de los clientes de manera robusta y fiable.* **TCP (Transmission Control Protocol):** El protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.##
+* **NestJS:** Un framework progresivo de Node.js, ideal para construir aplicaciones del lado del servidor escalables y eficientes, siguiendo principios de arquitectura modular.* **Prisma:** Un ORM (Object-Relational Mapper) y generador de cliente moderno para Node.js y TypeScript, que proporciona una forma segura y tipada de interactuar con la base de datos.
 
-**📡 Detalles del Microservicio ***
+* **PostgreSQL:** Un potente sistema de gestión de bases de datos relacionales, utilizado para almacenar la información de los clientes de manera robusta y fiable.
 
-* **Rol:** Provee las funcionalidades CRUD para la entidad `Client`.* **Dirección IP Local de la Máquina (Tu IP Actual):** `192.168.20.68`* **Puerto de Escucha (Servidor TCP):** `3004`* **Método de Comunicación:** Protocolo TCP de NestJS (Request-Response basado en patrones de mensaje).* **Gateway Principal (para referencia de tu compañero):** `192.168.20.150:3001` (Esta es la IP y puerto que tu compañero usará para su Gateway principal).##
+* **TCP (Transmission Control Protocol):** El protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.##
 
-**📦Modelo de Datos (Prisma - `Client`) ***
+**📡 Detalles del Microservicio**
 
+* **Rol:** Provee las funcionalidades CRUD para la entidad `Client`.
 
-* El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:
+* **Dirección IP Local de la Máquina (Tu IP Actual):** `192.168.20.68`
+
+* **Puerto de Escucha (Servidor TCP):** `3004`
+
+* **Método de Comunicación:** Protocolo TCP de NestJS (Request-Response basado en patrones de mensaje).
+
+* **Gateway Principal (para referencia de tu compañero):** `192.168.20.150:3001` (Esta es la IP y puerto que tu compañero usará para su Gateway principal).##
+
+**📦Modelo de Datos (Prisma - `Client`)**
+
+El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:
 ```prisma
 model Client {
 
@@ -40,7 +51,7 @@ updatedAt DateTime @updatedAt
 
 ⚙️ **Funcionalidades Expuestas (Patrones de Mensaje TCP)**
 
-* Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
+Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
 
 | `cmd`             | Descripción                                     | Payload Esperado (`data`)                                                                        | Retorno (`Promise<...`)    |
 | :---------------- | :---------------------------------------------- | :----------------------------------------------------------------------------------------------- | :------------------------- |
@@ -52,12 +63,11 @@ updatedAt DateTime @updatedAt
 
 **🚀 Cómo Poner en Marcha el Microservicio**
 
-* Sigue estos pasos para configurar y ejecutar el microservicio de clientes en tu entorno de desarrollo.
+Sigue estos pasos para configurar y ejecutar el microservicio de clientes en tu entorno de desarrollo.
 
 **Prerrequisitos**
 
-* Asegúrate de tener instalados los siguientes componentes:
-
+Asegúrate de tener instalados los siguientes componentes:
 
 
 * Node.js (versión 16.x o superior recomendada) y npm
@@ -82,7 +92,8 @@ cd microservice-clientes
 
 (Si necesitas clonarlo: git clone [URL_DE_TU_REPOSITORIO_GITHUB])
 
-Instalar Dependencias del Proyecto:
+
+* Instalar Dependencias del Proyecto:
 
 
 
@@ -94,7 +105,7 @@ npm install
 ```bash
 npm install @nestjs/microservices prisma @prisma/client
 ```
-Configurar la Base de Datos PostgreSQL:
+* Configurar la Base de Datos PostgreSQL:
 
 Asegúrate de que tu servidor PostgreSQL esté ejecutándose.
 
@@ -102,11 +113,11 @@ Utiliza PgAdmin para verificar la conexión a tu servidor PostgreSQL (host: loca
 
 Confirma que tienes una base de datos creada para este microservicio, por ejemplo: clientes_db.
 
-Configurar Prisma y la Conexión a la DB:
+* Configurar Prisma y la Conexión a la DB:
 
 Abre el archivo .env en la raíz de tu proyecto.
 
-Asegúrate de que la DATABASE_URL esté correctamente configurada con tus credenciales y el nombre de tu base de datos:
+* Asegúrate de que la DATABASE_URL esté correctamente configurada con tus credenciales y el nombre de tu base de datos:
 
 
 
@@ -114,14 +125,12 @@ Asegúrate de que la DATABASE_URL esté correctamente configurada con tus creden
 # .env
 
 
-DATABASE_URL="postgresql://postgres:bipc@localhost:5432/clientes_db?schema=public"
+DATABASE_URL="DATABASE_URL="postgresql://myuser:mypassword123@localhost:5432/mydatabase?schema=public""
 ```
 
-Asegúrate de que el esquema de tu modelo Client en prisma/schema.prisma sea el correcto (como se mostró arriba en "Modelo de Datos").
+Asegúrate de que el esquema de tu modelo Client en prisma/schema.prisma sea el correcto.
 
 Genera el cliente de Prisma y sincroniza el esquema con tu base de datos (esto creará o actualizará la tabla Client):
-
-
 
 
 ```bash
@@ -132,41 +141,7 @@ npx prisma generate
 npx prisma db push
 ```
 
-Verificar y Ajustar src/main.ts:
-
-Confirma que src/main.ts está configurado para iniciar el microservicio TCP en el puerto 3004 y escuchar en todas las interfaces:
-
-
-
-```typeScript
-
-
-
-// src/main.tsimport { NestFactory } from '@nestjs/core';import { AppModule } from './app.module';import { Transport, MicroserviceOptions } from '@nestjs/microservices';async function bootstrap() {
-
-const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-
-transport: Transport.TCP,
-
-options: {
-
-host: '0.0.0.0', // Escucha en todas las interfaces de red
-
-port: 3004,
-
-},
-
-});
-
-await app.listen();
-
-console.log('Microservicio de clientes escuchando en el puerto 3004');
-
-}
-
-bootstrap();
-```
-Iniciar el Microservicio
+* Iniciar el Microservicio
 
 Una vez configurado todo lo anterior, para levantar el microservicio de clientes:
 
@@ -178,17 +153,13 @@ npm run start:dev
 ```
 Deberías ver un mensaje en tu consola indicando que el microservicio está escuchando en el puerto 3004.
 
+
 **🧪 Cómo Probar el Funcionamiento (Simulando el Gateway)**
 
-* Dado que este es un microservicio TCP, no se puede probar directamente desde un navegador web. La forma más efectiva de probarlo es simulando la comunicación que haría el Gateway principal.
-
-Puedes crear un pequeño proyecto NestJS separado para actuar como un "cliente de prueba" que envíe mensajes a tu microservicio. Sigue estos pasos para crear y usar este cliente de prueba:
+Dado que este es un microservicio TCP, no se puede probar directamente desde un navegador web. La forma más efectiva de probarlo es simulando la comunicación que haría el Gateway principal. Puedes crear un pequeño proyecto NestJS separado para actuar como un "cliente de prueba" que envíe mensajes a tu microservicio. Sigue estos pasos para crear y usar este cliente de prueba:
 
 
-
-Crear un Nuevo Proyecto NestJS para Pruebas (en otro directorio):
-
-Abre una nueva terminal y crea un nuevo proyecto NestJS, por ejemplo, test-gateway-client:
+* Abre una nueva terminal y crea un nuevo proyecto NestJS, por ejemplo, test-gateway-client:
 
 
 
@@ -196,15 +167,16 @@ Abre una nueva terminal y crea un nuevo proyecto NestJS, por ejemplo, test-gatew
 
 nest new test-gateway-clientcd test-gateway-client
 ```
-Instalar Dependencia de Microservicios:
 
+* Instalar Dependencia de Microservicios:
 
 
 ```bash
 npm install @nestjs/microservices
 
 ```
-Configurar el Cliente de Prueba en src/main.ts del Proyecto de Prueba:
+
+* Configurar el Cliente de Prueba en src/main.ts del Proyecto de Prueba:
 
 Reemplaza el contenido del src/main.ts de este nuevo proyecto test-gateway-client con el siguiente código. Este script se encargará de enviar solicitudes a tu microservicio de clientes.
 
@@ -341,11 +313,11 @@ console.log('\nCliente de prueba desconectado y aplicación cerrada.');
 
 bootstrap();
 ```
-Ejecutar el Cliente de Prueba:
+* Ejecutar el Cliente de Prueba:
 
 Asegúrate de que tu microservicio de clientes (microservice-clientes) esté corriendo en su propia terminal (npm run start:dev).
 
-Luego, en la terminal de tu nuevo proyecto test-gateway-client, ejecuta:
+* Luego, en la terminal de tu nuevo proyecto test-gateway-client, ejecuta:
 
 
 ```bash 
