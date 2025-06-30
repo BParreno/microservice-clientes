@@ -2,11 +2,20 @@
 
 
 
-Este proyecto implementa el microservicio de gestión de clientes dentro de un sistema de ventas distribuido. Su función principal es manejar todas las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) relacionadas con la información de los clientes, interactuando directamente con una base de datos PostgreSQL.## 🚀 Tecnologías Utilizadas* **NestJS:** Un framework progresivo de Node.js, ideal para construir aplicaciones del lado del servidor escalables y eficientes, siguiendo principios de arquitectura modular.* **Prisma:** Un ORM (Object-Relational Mapper) y generador de cliente moderno para Node.js y TypeScript, que proporciona una forma segura y tipada de interactuar con la base de datos.* **PostgreSQL:** Un potente sistema de gestión de bases de datos relacionales, utilizado para almacenar la información de los clientes de manera robusta y fiable.* **TCP (Transmission Control Protocol):** El protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.## 📡 Detalles del Microservicio* **Rol:** Provee las funcionalidades CRUD para la entidad `Client`.* **Dirección IP Local de la Máquina (Tu IP Actual):** `192.168.20.68`* **Puerto de Escucha (Servidor TCP):** `3004`* **Método de Comunicación:** Protocolo TCP de NestJS (Request-Response basado en patrones de mensaje).* **Gateway Principal (para referencia de tu compañero):** `192.168.20.150:3001` (Esta es la IP y puerto que tu compañero usará para su Gateway principal).## 📦 Modelo de Datos (Prisma - `Client`)
+Este proyecto implementa el microservicio de gestión de clientes dentro de un sistema de ventas distribuido. Su función principal es manejar todas las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) relacionadas con la información de los clientes, interactuando directamente con una base de datos PostgreSQL.## 
+
+**🚀 Tecnologías Utilizadas**
+
+* **NestJS:** Un framework progresivo de Node.js, ideal para construir aplicaciones del lado del servidor escalables y eficientes, siguiendo principios de arquitectura modular.* **Prisma:** Un ORM (Object-Relational Mapper) y generador de cliente moderno para Node.js y TypeScript, que proporciona una forma segura y tipada de interactuar con la base de datos.* **PostgreSQL:** Un potente sistema de gestión de bases de datos relacionales, utilizado para almacenar la información de los clientes de manera robusta y fiable.* **TCP (Transmission Control Protocol):** El protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.##
+
+**📡 Detalles del Microservicio ***
+
+* **Rol:** Provee las funcionalidades CRUD para la entidad `Client`.* **Dirección IP Local de la Máquina (Tu IP Actual):** `192.168.20.68`* **Puerto de Escucha (Servidor TCP):** `3004`* **Método de Comunicación:** Protocolo TCP de NestJS (Request-Response basado en patrones de mensaje).* **Gateway Principal (para referencia de tu compañero):** `192.168.20.150:3001` (Esta es la IP y puerto que tu compañero usará para su Gateway principal).##
+
+**📦Modelo de Datos (Prisma - `Client`) ***
 
 
-
-El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:
+* El microservicio gestiona la entidad `Client` con el siguiente esquema, definido en `prisma/schema.prisma`:
 ```prisma
 model Client {
 
@@ -29,9 +38,9 @@ updatedAt DateTime @updatedAt
 }
 ```
 
-⚙️ Funcionalidades Expuestas (Patrones de Mensaje TCP)
+⚙️ **Funcionalidades Expuestas (Patrones de Mensaje TCP)**
 
-Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
+* Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
 
 | `cmd`             | Descripción                                     | Payload Esperado (`data`)                                                                        | Retorno (`Promise<...`)    |
 | :---------------- | :---------------------------------------------- | :----------------------------------------------------------------------------------------------- | :------------------------- |
@@ -41,27 +50,27 @@ Este microservicio expone sus funcionalidades a través de los siguientes patron
 | `updateClient`    | Actualiza los datos de un cliente existente.    | `{ id: number, data: Partial<Omit<Client, 'id' \| 'createdAt' \| 'updatedAt'>> }`                 | `Client`                   |
 | `deleteClient`    | Elimina un cliente de la base de datos por su ID. | `number` (el ID del cliente a eliminar)                                                          | `Client`                   |
 
-🚀 Cómo Poner en Marcha el Microservicio
+**🚀 Cómo Poner en Marcha el Microservicio**
 
-Sigue estos pasos para configurar y ejecutar el microservicio de clientes en tu entorno de desarrollo.
+* Sigue estos pasos para configurar y ejecutar el microservicio de clientes en tu entorno de desarrollo.
 
-Prerrequisitos
+**Prerrequisitos**
 
-Asegúrate de tener instalados los siguientes componentes:
+* Asegúrate de tener instalados los siguientes componentes:
 
 
 
-Node.js (versión 16.x o superior recomendada) y npm
+* Node.js (versión 16.x o superior recomendada) y npm
 
-PostgreSQL (Servidor de base de datos - ya instalado)
+* PostgreSQL (Servidor de base de datos - ya instalado)
 
-PgAdmin (Herramienta gráfica opcional para administrar PostgreSQL - ya instalado)
+* PgAdmin (Herramienta gráfica opcional para administrar PostgreSQL - ya instalado)
 
-NestJS CLI (instalado globalmente: npm i -g @nestjs/cli)
+* NestJS CLI (instalado globalmente: npm i -g @nestjs/cli)
 
-Configuración del Entorno
+**Configuración del Entorno**
 
-Navegar al Directorio del Proyecto:
+* Navegar al Directorio del Proyecto:
 
 Si ya clonaste o creaste el proyecto, simplemente navega a su directorio:
 
@@ -169,9 +178,9 @@ npm run start:dev
 ```
 Deberías ver un mensaje en tu consola indicando que el microservicio está escuchando en el puerto 3004.
 
-🧪 Cómo Probar el Funcionamiento (Simulando el Gateway)
+**🧪 Cómo Probar el Funcionamiento (Simulando el Gateway)**
 
-Dado que este es un microservicio TCP, no se puede probar directamente desde un navegador web. La forma más efectiva de probarlo es simulando la comunicación que haría el Gateway principal.
+* Dado que este es un microservicio TCP, no se puede probar directamente desde un navegador web. La forma más efectiva de probarlo es simulando la comunicación que haría el Gateway principal.
 
 Puedes crear un pequeño proyecto NestJS separado para actuar como un "cliente de prueba" que envíe mensajes a tu microservicio. Sigue estos pasos para crear y usar este cliente de prueba:
 
