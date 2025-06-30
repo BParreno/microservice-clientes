@@ -37,56 +37,13 @@ updatedAt DateTime @updatedAt
 
 Este microservicio expone sus funcionalidades a través de los siguientes patrones de mensaje TCP. El Gateway debe enviar mensajes con el cmd especificado y el payload (argumentos) correspondiente.
 
-```markdown
-cmd
-
-Descripción
-
-Payload Esperado (data)
-
-Retorno (Promise<...)
-
-createClient
-
-Crea un nuevo cliente en la base de datos.
-
-Omit<Client, 'id' | 'createdAt' | 'updatedAt'> (ej. { firstName: 'Juan', email: 'j@ex.com' })
-
-Client
-
-findAllClients
-
-Obtiene una lista de todos los clientes.
-
-{} (Objeto vacío o cualquier valor, no se utiliza)
-
-Client[]
-
-findClientById
-
-Busca y devuelve un cliente específico por su ID.
-
-number (el ID del cliente)
-
-Client | null
-
-updateClient
-
-Actualiza los datos de un cliente existente.
-
-{ id: number, data: Partial<Omit<Client, 'id' | 'createdAt' | 'updatedAt'>> }
-
-Client
-
-deleteClient
-
-Elimina un cliente de la base de datos por su ID.
-
-number (el ID del cliente a eliminar)
-
-Client
-
-```
+| `cmd`             | Descripción                                     | Payload Esperado (`data`)                                                                        | Retorno (`Promise<...`)    |
+| :---------------- | :---------------------------------------------- | :----------------------------------------------------------------------------------------------- | :------------------------- |
+| `createClient`    | Crea un nuevo cliente en la base de datos.      | `Omit<Client, 'id' \| 'createdAt' \| 'updatedAt'>` (ej. `{ firstName: 'Juan', email: 'j@ex.com' }`) | `Client`                   |
+| `findAllClients`  | Obtiene una lista de todos los clientes.        | `{}` (Objeto vacío o cualquier valor, no se utiliza)                                             | `Client[]`                 |
+| `findClientById`  | Busca y devuelve un cliente específico por su ID. | `number` (el ID del cliente)                                                                     | `Client \| null`           |
+| `updateClient`    | Actualiza los datos de un cliente existente.    | `{ id: number, data: Partial<Omit<Client, 'id' \| 'createdAt' \| 'updatedAt'>> }`                 | `Client`                   |
+| `deleteClient`    | Elimina un cliente de la base de datos por su ID. | `number` (el ID del cliente a eliminar)                                                          | `Client`                   |
 
 🚀 Cómo Poner en Marcha el Microservicio
 
@@ -145,10 +102,9 @@ Asegúrate de que la DATABASE_URL esté correctamente configurada con tus creden
 
 ```
 
-```markdown
-
-# .env
 ```bash
+# .env
+
 
 DATABASE_URL="postgresql://postgres:bipc@localhost:5432/clientes_db?schema=public"
 
