@@ -40,13 +40,13 @@ Descripción
 
 Payload Esperado (data)
 
-Retorno (Promise<...)
+Retorno (Promise<...>)
 
 createClient
 
 Crea un nuevo cliente en la base de datos.
 
-Omit<Client, 'id' | 'createdAt' | 'updatedAt'> (ej. { firstName: 'Juan', email: 'j@ex.com' })
+Omit<Client, 'id' | 'createdAt' | 'updatedAt'>(ej.{ firstName: 'Juan', email: 'j@ex.com' })
 
 Client
 
@@ -81,8 +81,6 @@ Elimina un cliente de la base de datos por su ID.
 number (el ID del cliente a eliminar)
 
 Client
-
-Exportar a Hojas de cálculo
 
 🚀 Cómo Poner en Marcha el Microservicio
 
