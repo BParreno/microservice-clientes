@@ -8,31 +8,29 @@ import { Client } from '@prisma/client'; // Importa el tipo 'Client'
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  // Cada @MessagePattern define un "comando" que este microservicio puede procesar
-  // El gateway enviará un mensaje con { cmd: 'createClient' } y un payload con los datos del cliente
-  @MessagePattern({ cmd: 'createClient' })
+  @MessagePattern('createClient' )
   async createClient(data: Omit<Client, 'id' | 'createdAt' | 'updatedAt'>): Promise<Client> {
     return this.clientsService.createClient(data);
   }
 
-  @MessagePattern({ cmd: 'findAllClients' })
+  @MessagePattern('findAllClients')
   async findAllClients(): Promise<Client[]> {
     return this.clientsService.findAllClients();
   }
 
-  @MessagePattern({ cmd: 'findClientById' })
+  @MessagePattern('findClientById')
   async findClientById(id: number): Promise<Client | null> {
     // El 'id' se recibe directamente como el payload del mensaje
     return this.clientsService.findClientById(id);
   }
 
-  @MessagePattern({ cmd: 'updateClient' })
+  @MessagePattern('updateClient')
   async updateClient({ id, data }: { id: number; data: Partial<Omit<Client, 'id' | 'createdAt' | 'updatedAt'>> }): Promise<Client> {
     // Para actualizar, se espera un objeto con { id: ID_DEL_CLIENTE, data: { ...NUEVOS_DATOS } }
     return this.clientsService.updateClient(id, data);
   }
 
-  @MessagePattern({ cmd: 'deleteClient' })
+  @MessagePattern('deleteClient')
   async deleteClient(id: number): Promise<Client> {
     return this.clientsService.deleteClient(id);
   }
