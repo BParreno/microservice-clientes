@@ -46,9 +46,9 @@ createClient
 
 Crea un nuevo cliente en la base de datos.
 
-`Omit<Client, 'id'
+Omit<Client, 'id' | 'createdAt' | 'updatedAt'>(ej.{ firstName: 'Juan', email: 'j@ex.com' })
 
-'createdAt'
+Client
 
 findAllClients
 
@@ -64,15 +64,15 @@ Busca y devuelve un cliente específico por su ID.
 
 number (el ID del cliente)
 
-`Client
+Client | null
 
 updateClient
 
 Actualiza los datos de un cliente existente.
 
-`{ id: number, data: Partial<Omit<Client, 'id'
+{ id: number, data: Partial<Omit<Client, 'id' | 'createdAt' | 'updatedAt'>> }
 
-'createdAt'
+Client
 
 deleteClient
 
