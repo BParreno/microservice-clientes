@@ -1,0 +1,21 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Aquí Prisma buscará la URL de conexión a tu DB
+}
+
+model Client {
+  id        Int      @id @default(autoincrement()) // ID único, autoincremental
+  firstName String
+  lastName  String
+  email     String   @unique // El correo debe ser único
+  phone     String?  // El signo de interrogación indica que el campo es opcional
+  address   String?
+  createdAt DateTime @default(now()) // Fecha de creación, por defecto la actual
+  updatedAt DateTime @updatedAt     // Fecha de última actualización
+}
