@@ -2,13 +2,13 @@ Microservicio de Clientes (NestJS)
 Este proyecto implementa el microservicio de gestión de clientes dentro de un sistema de ventas distribuido, utilizando NestJS. Su función principal es manejar todas las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) relacionadas con la información de los clientes, interactuando directamente con una base de datos PostgreSQL.
 
 Tecnologías Utilizadas:
-NestJS: Framework progresivo de Node.js, ideal para construir aplicaciones escalables y eficientes en el lado del servidor.
+NestJS: Un framework progresivo de Node.js, ideal para construir aplicaciones del lado del servidor escalables y eficientes, siguiendo principios de arquitectura modular.
 
-Prisma: ORM y generador de cliente moderno para Node.js y TypeScript, para una interacción segura y tipada con la base de datos.
+Prisma: Un ORM (Object-Relational Mapper) y generador de cliente moderno para Node.js y TypeScript, que proporciona una forma segura y tipada de interactuar con la base de datos.
 
-PostgreSQL: Potente sistema de gestión de bases de datos relacionales para almacenar la información de los clientes.
+PostgreSQL: Un potente sistema de gestión de bases de datos relacionales, utilizado para almacenar la información de los clientes de manera robusta y fiable.
 
-TCP (Transmission Control Protocol): Protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.
+TCP (Transmission Control Protocol): El protocolo de comunicación base utilizado para la interacción entre este microservicio y el Gateway principal.
 
 Detalles del Microservicio:
 Rol: Provee las funcionalidades CRUD para la entidad Client.
