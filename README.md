@@ -1,7 +1,3 @@
-Markdown
-
-
-
 # 🧑‍💻 Microservicio de Clientes para Sistema de Ventas
 
 
@@ -73,19 +69,22 @@ Si ya clonaste o creaste el proyecto, simplemente navega a su directorio:
 
 ```bash
 cd microservice-clientes
+```
 
 (Si necesitas clonarlo: git clone [URL_DE_TU_REPOSITORIO_GITHUB])
 
 Instalar Dependencias del Proyecto:
 
-```
+
 
 ```bash
 
 npm install
+```
 
+```bash
 npm install @nestjs/microservices prisma @prisma/client
-
+```
 Configurar la Base de Datos PostgreSQL:
 
 Asegúrate de que tu servidor PostgreSQL esté ejecutándose.
@@ -100,32 +99,35 @@ Abre el archivo .env en la raíz de tu proyecto.
 
 Asegúrate de que la DATABASE_URL esté correctamente configurada con tus credenciales y el nombre de tu base de datos:
 
-```
+
 
 ```bash
 # .env
 
 
 DATABASE_URL="postgresql://postgres:bipc@localhost:5432/clientes_db?schema=public"
+```
 
 Asegúrate de que el esquema de tu modelo Client en prisma/schema.prisma sea el correcto (como se mostró arriba en "Modelo de Datos").
 
 Genera el cliente de Prisma y sincroniza el esquema con tu base de datos (esto creará o actualizará la tabla Client):
 
-```
+
 
 
 ```bash
 
 npx prisma generate
-
+```
+```bash
 npx prisma db push
+```
 
 Verificar y Ajustar src/main.ts:
 
 Confirma que src/main.ts está configurado para iniciar el microservicio TCP en el puerto 3004 y escuchar en todas las interfaces:
 
-```
+
 
 ```typeScript
 
@@ -154,17 +156,17 @@ console.log('Microservicio de clientes escuchando en el puerto 3004');
 }
 
 bootstrap();
-
+```
 Iniciar el Microservicio
 
 Una vez configurado todo lo anterior, para levantar el microservicio de clientes:
 
-```
+
 
 ```bash
 
 npm run start:dev
-
+```
 Deberías ver un mensaje en tu consola indicando que el microservicio está escuchando en el puerto 3004.
 
 🧪 Cómo Probar el Funcionamiento (Simulando el Gateway)
@@ -179,24 +181,24 @@ Crear un Nuevo Proyecto NestJS para Pruebas (en otro directorio):
 
 Abre una nueva terminal y crea un nuevo proyecto NestJS, por ejemplo, test-gateway-client:
 
-```
+
 
 ```bash
 
 nest new test-gateway-clientcd test-gateway-client
-
+```
 Instalar Dependencia de Microservicios:
 
-```
+
 
 ```bash
 npm install @nestjs/microservices
 
+```
 Configurar el Cliente de Prueba en src/main.ts del Proyecto de Prueba:
 
 Reemplaza el contenido del src/main.ts de este nuevo proyecto test-gateway-client con el siguiente código. Este script se encargará de enviar solicitudes a tu microservicio de clientes.
 
-```
 
 ```typeScript
 
@@ -329,15 +331,15 @@ console.log('\nCliente de prueba desconectado y aplicación cerrada.');
 }
 
 bootstrap();
-
+```
 Ejecutar el Cliente de Prueba:
 
 Asegúrate de que tu microservicio de clientes (microservice-clientes) esté corriendo en su propia terminal (npm run start:dev).
 
 Luego, en la terminal de tu nuevo proyecto test-gateway-client, ejecuta:
-```
 
-  ```bash 
+
+```bash 
 npm run start # O npm run start:dev si también está en modo watch
 ```
 
